@@ -1,0 +1,10 @@
+telegram_bot:
+  enable: true
+  api: TELEGRAM_API_KEY
+  image_dir: received_images/
+  allowed_users:
+  #environment variables of allowed telegram users
+    - CHAT_ID_USER1
+printer:
+  enable: true
+  usb: 4
