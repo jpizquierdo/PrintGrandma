@@ -4,8 +4,8 @@ Introduction
 PrintGrandma is a simple implementation of an automatic thermal printer system for pictures made for my grandmother, inspired by [Yayagram's project](https://github.com/mrcatacroquer/yayagram). You can find more of Yayagram project in [instructables](https://www.instructables.com/Yayagram/).
 In my case, the printing is automatic. My grandmother does not know how to read, does not have a smartphone and it has to be the easiest that it could be, so it will not be bydirectional, just one way.
 Any of the grandson/grandsister can send a picture to the telegram bot, and it will be printed automatically.
-![Printed image](https://github.com/jpizquierdo/PrintGrandma/blob/master/doc/img/printed_image.jpg?raw=true)
-![Telegram bot screenshot](https://github.com/jpizquierdo/PrintGrandma/blob/master/doc/img/telegram_screenshot.jpg?raw=true)
+![Printed image](doc/img/printed_image.jpg)
+![Telegram bot screenshot](doc/img/telegram_screenshot.jpg)
 
 Core functionality
 ============
