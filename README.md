@@ -22,14 +22,15 @@ Installing
 
 Environment variables configuration
 ============
-    Note that at least TELEGRAM_PRINTER_API_KEY and CHAT_ID_USER1 environment variables should be inseide /etc/profile folder:
+    Note that at least TELEGRAM_PRINTER_API_KEY and CHAT_ID_USER1 environment variables should be inside /etc/profile file:
     
     $ export TELEGRAM_PRINTER_API_KEY="fadfadffs432432"
     $ export CHAT_ID_USER1="123213123"
 
 Usage
 ============
-    $ sudo python printgrandma.py
+    $ sudo -E python printgrandma.py
+    #-E to use user environmental variables set in /etc/profile
 
 Getting help or sharing your idea
 ============

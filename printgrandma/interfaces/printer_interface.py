@@ -55,6 +55,7 @@ class ThermalPrinterInterface(object):
             if isinstance(self.IMAGES_DIR, str):
                 self.IMAGES_DIR = Path(self.IMAGES_DIR)
             self.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+            self._logger(f"Thermal Printher interface successfully initialized with pid {self._pid}")
         except Exception as error:
             self._logger.error(f"Process {self._pid} - " + repr(error))
             success = False
@@ -71,6 +72,7 @@ class ThermalPrinterInterface(object):
         try:
             for image in self.IMAGES_DIR.glob("*.jpg"):
                 self.printer.image(image)
+                self.printer.textln()
                 sleep(5)
                 image.unlink()
         except Exception as e:
