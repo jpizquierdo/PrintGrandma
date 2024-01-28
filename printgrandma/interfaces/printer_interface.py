@@ -72,6 +72,8 @@ class ThermalPrinterInterface(object):
         try:
             for image in self.IMAGES_DIR.glob("*.jpg"):
                 self.printer.image(image)
+                #in order to have more space below the picture
+                self.printer.textln()
                 self.printer.textln()
                 sleep(5)
                 image.unlink()
