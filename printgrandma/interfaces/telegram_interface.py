@@ -135,4 +135,4 @@ class TelegramInterface(object):
         img.save(file_path)
 
         # Reply to the user
-        await update.message.reply_text("Image received and stored successfully!")
+        await update.message.reply_text(f"Image received and stored successfully!. Resized to: w:{wsize}, h: {hsize}")
