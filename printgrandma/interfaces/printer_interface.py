@@ -54,9 +54,11 @@ class ThermalPrinterInterface(object):
             self.IMAGES_DIR = self._configTelegram.image_dir
             if isinstance(self.IMAGES_DIR, str):
                 self.IMAGES_DIR = Path(self.IMAGES_DIR)
-            self.IMAGES_DIR.joinpath("/print")
+            self.IMAGES_DIR = self.IMAGES_DIR.joinpath("/print")
             self.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
-            self._logger.info(f"Thermal Printher interface successfully initialized with pid {self._pid}")
+            self._logger.info(
+                f"Thermal Printher interface successfully initialized with pid {self._pid}"
+            )
         except Exception as error:
             self._logger.error(f"Process {self._pid} - " + repr(error))
             success = False
@@ -73,7 +75,7 @@ class ThermalPrinterInterface(object):
         try:
             for image in self.IMAGES_DIR.glob("*.jpg"):
                 self.printer.image(image)
-                #in order to have more space below the picture
+                # in order to have more space below the picture
                 self.printer.textln()
                 self.printer.textln()
                 sleep(5)
