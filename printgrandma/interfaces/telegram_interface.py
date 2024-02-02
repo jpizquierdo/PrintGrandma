@@ -125,14 +125,14 @@ class TelegramInterface(object):
         file = await context.bot.get_file(file_id)
         file_path = self.IMAGES_DIR.joinpath(f"{file_id}.jpg")
         await file.download_to_drive(file_path)
-        sleep(2)
         # Open the image using Pillow and resize to proper printer width
         img = Image.open(file_path)
         wsize = self._configPrinter.image_width
         wpercent = wsize / float(img.size[0])
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((wsize, hsize))
-        img.save(file_path)
+        img.save(file_path.parent.joinpath(f"/print/{file_path.name}"))
+        file_path.unlink()
 
         # Reply to the user
         await update.message.reply_text(f"Image received and stored successfully!. Resized to: w:{wsize}, h: {hsize}")
