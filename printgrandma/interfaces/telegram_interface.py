@@ -13,7 +13,7 @@ from telegram.ext import (
     CallbackContext,
 )
 import PIL
-from PIL import Image, ImageEnhance
+from PIL import Image
 from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 
 
@@ -131,8 +131,6 @@ class TelegramInterface(object):
         wpercent = wsize / float(img.size[0])
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((wsize, hsize))
-        img = ImageEnhance.Brightness(img)
-        img.enhance(1.5)
         img.save(file_path)
 
         # Reply to the user
