@@ -131,7 +131,7 @@ class TelegramInterface(object):
         wpercent = wsize / float(img.size[0])
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((wsize, hsize))
-        img.save(file_path.parent.joinpath(f"/print/{file_path.name}"))
+        img.save(file_path.parent.joinpath("print",f"{file_path.name}"))
         file_path.unlink()
 
         # Reply to the user

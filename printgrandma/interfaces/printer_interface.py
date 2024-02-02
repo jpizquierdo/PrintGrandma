@@ -54,7 +54,7 @@ class ThermalPrinterInterface(object):
             self.IMAGES_DIR = self._configTelegram.image_dir
             if isinstance(self.IMAGES_DIR, str):
                 self.IMAGES_DIR = Path(self.IMAGES_DIR)
-            self.IMAGES_DIR = self.IMAGES_DIR.joinpath("/print")
+            self.IMAGES_DIR = self.IMAGES_DIR.joinpath("print")
             self.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
             self._logger.info(
                 f"Thermal Printher interface successfully initialized with pid {self._pid}"
