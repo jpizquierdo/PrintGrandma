@@ -1,6 +1,7 @@
 from typing import Mapping, Any
 from logging import Logger, getLogger
 from pathlib import Path
+from time import sleep
 from pydantic import ValidationError
 import os
 from telegram import Update
@@ -124,7 +125,7 @@ class TelegramInterface(object):
         file = await context.bot.get_file(file_id)
         file_path = self.IMAGES_DIR.joinpath(f"{file_id}.jpg")
         await file.download_to_drive(file_path)
-
+        sleep(2)
         # Open the image using Pillow and resize to proper printer width
         img = Image.open(file_path)
         wsize = self._configPrinter.image_width
