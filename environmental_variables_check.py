@@ -1,10 +1,11 @@
 import argparse
-from pathlib import Path
-from pydantic import ValidationError
-import yaml
-from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 import os
+from pathlib import Path
 
+import yaml
+from pydantic import ValidationError
+
+from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 
 # Get static configuration for the program
 parser = argparse.ArgumentParser()
@@ -14,7 +15,7 @@ parser.add_argument(
     default="./config/config.yaml",
     help="Path to static configuration",
 )
-with open(Path(parser.parse_args().config), "r") as configfile:
+with open(Path(parser.parse_args().config)) as configfile:
     config = yaml.safe_load(configfile)
     try:
         telegramconfig = TelegramConfig(**config["telegram_bot"])

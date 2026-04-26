@@ -1,12 +1,15 @@
-from multiprocessing import Process
-from typing import Mapping, Any
+import os
+import sys
+from collections.abc import Mapping
 from logging import Logger, getLogger
-import sys, os
+from multiprocessing import Process
+from typing import Any
+
 from printgrandma.interfaces.telegram_interface import TelegramInterface
 
 
 class TelegramBot(Process):
-    def __init__(self, config: Mapping[str, Any], logger: Logger = getLogger()) -> None:
+    def __init__(self, config: Mapping[str, Any], logger: Logger | None = None) -> None:
         """
         Data consumer constructor.
 
@@ -20,7 +23,7 @@ class TelegramBot(Process):
         """
         super().__init__()
         self._config = config.copy()
-        self._logger = logger
+        self._logger = logger if logger is not None else getLogger()
 
     def run(self) -> None:
         success = False

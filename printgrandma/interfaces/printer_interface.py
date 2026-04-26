@@ -1,19 +1,20 @@
-from typing import Mapping, Any
-from logging import Logger, getLogger
 import os
+from collections.abc import Mapping
+from logging import Logger, getLogger
 from pathlib import Path
-from pydantic import ValidationError
-from escpos.printer import Usb
-from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 from time import sleep
+from typing import Any
+
+from escpos.printer import Usb
+from pydantic import ValidationError
+
+from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 
 
-class ThermalPrinterInterface(object):
-    def __init__(
-        self, config: Mapping[str, Any] = {}, logger: Logger = getLogger()
-    ) -> None:
+class ThermalPrinterInterface:
+    def __init__(self, config: Mapping[str, Any] = {}, logger: Logger | None = None) -> None:
         """
-        Telegram interface constructor.
+        Thermal printer interface constructor.
 
         Parameters
         ----------
@@ -22,6 +23,8 @@ class ThermalPrinterInterface(object):
         logger: Logger
             logger object
         """
+        if logger is None:
+            logger = getLogger()
         try:
             self._configTelegram = TelegramConfig(**config["telegram_bot"])
             self._configPrinter = PrinterConfig(**config["printer"])
