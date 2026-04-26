@@ -1,11 +1,14 @@
-import sys, os, argparse
+import argparse
+import os
+import sys
 from pathlib import Path
 from time import sleep
+
 import yaml
 
-from printgrandma.utils.utils import get_logger
 from printgrandma.processors.telegram_bot import TelegramBot
 from printgrandma.processors.thermal_printer import ThermalPrinter
+from printgrandma.utils.utils import get_logger
 
 
 def main() -> int:
@@ -24,7 +27,7 @@ def main() -> int:
             help="Path to static configuration",
         )
 
-        with open(Path(parser.parse_args().config), "r") as configfile:
+        with open(Path(parser.parse_args().config)) as configfile:
             config = yaml.safe_load(configfile)
 
         # Creation of processes

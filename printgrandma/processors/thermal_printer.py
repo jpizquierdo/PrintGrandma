@@ -1,13 +1,16 @@
-from multiprocessing import Process
-from typing import Mapping, Any
+import os
+import sys
+from collections.abc import Mapping
 from logging import Logger, getLogger
-import sys, os
-from printgrandma.interfaces.printer_interface import ThermalPrinterInterface
+from multiprocessing import Process
 from time import sleep
+from typing import Any
+
+from printgrandma.interfaces.printer_interface import ThermalPrinterInterface
 
 
 class ThermalPrinter(Process):
-    def __init__(self, config: Mapping[str, Any], logger: Logger = getLogger()) -> None:
+    def __init__(self, config: Mapping[str, Any], logger: Logger | None = None) -> None:
         """
         Data consumer constructor.
 
@@ -21,7 +24,7 @@ class ThermalPrinter(Process):
         """
         super().__init__()
         self._config = config.copy()
-        self._logger = logger
+        self._logger = logger if logger is not None else getLogger()
 
     def run(self) -> None:
         success = False

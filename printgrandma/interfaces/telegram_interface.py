@@ -1,27 +1,26 @@
-from typing import Mapping, Any
+import os
+from collections.abc import Mapping
 from logging import Logger, getLogger
 from pathlib import Path
-from time import sleep
+from typing import Any
+
+from PIL import Image
 from pydantic import ValidationError
-import os
 from telegram import Update
 from telegram.ext import (
     Application,
+    CallbackContext,
     CommandHandler,
     ContextTypes,
     MessageHandler,
     filters,
-    CallbackContext,
 )
-import PIL
-from PIL import Image
+
 from printgrandma.utils.utils import PrinterConfig, TelegramConfig
 
 
-class TelegramInterface(object):
-    def __init__(
-        self, config: Mapping[str, Any] = {}, logger: Logger = getLogger()
-    ) -> None:
+class TelegramInterface:
+    def __init__(self, config: Mapping[str, Any] = {}, logger: Logger | None = None) -> None:
         """
         Telegram interface constructor.
 
@@ -32,6 +31,8 @@ class TelegramInterface(object):
         logger: Logger
             logger object
         """
+        if logger is None:
+            logger = getLogger()
         try:
             self._configTelegram = TelegramConfig(**config["telegram_bot"])
             self._configPrinter = PrinterConfig(**config["printer"])
@@ -108,9 +109,7 @@ class TelegramInterface(object):
 
         return allowed
 
-    async def _check_status(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
+    async def _check_status(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """
         This method sends to the bot the system status data
         """
@@ -129,9 +128,9 @@ class TelegramInterface(object):
         img = Image.open(file_path)
         wsize = self._configPrinter.image_width
         wpercent = wsize / float(img.size[0])
-        hsize = int((float(img.size[1]) * float(wpercent)))
+        hsize = int(float(img.size[1]) * float(wpercent))
         img = img.resize((wsize, hsize))
-        img.save(file_path.parent.joinpath("print",f"{file_path.name}"))
+        img.save(file_path.parent.joinpath("print", f"{file_path.name}"))
         file_path.unlink()
 
         # Reply to the user
